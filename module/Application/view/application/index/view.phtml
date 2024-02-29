@@ -1,0 +1,125 @@
+<?php if (isset($errorMessage)): ?>
+
+<h2>Ocurrió un error al cargar los datos</h2>
+
+<?php else: ?>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8">
+                <div id="carouselPokemonSprites" class="carousel carousel-dark  slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active" data-bs-interval="4000">
+                            <img src="<?= $this->pokemon['sprites']['front_default'] ?>" class="d-block w-100" alt="<?= $this->pokemon['name'] ?>">
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="4000">
+                            <img src="<?= $this->pokemon['sprites']['front_shiny'] ?>" class="d-block w-100" alt="<?= $this->pokemon['name'] ?>">
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="4000">
+                            <img src="<?= $this->pokemon['sprites']['back_default'] ?>" class="d-block w-100" alt="<?= $this->pokemon['name'] ?>">
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="4000">
+                            <img src="<?= $this->pokemon['sprites']['back_shiny'] ?>" class="d-block w-100" alt="<?= $this->pokemon['name'] ?>">
+                        </div>
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPokemonSprites" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselPokemonSprites" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <h2 class="display-4"><?= ucfirst($this->pokemon['name']) ?></h2>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <span class="h4 d-block mb-2">Medidas</span>
+                        <p>
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Altura
+                                    <span class="badge bg-secondary rounded-pill"><?= $this->pokemon['height'] ?></span>
+                                </li>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Peso
+                                    <span class="badge bg-secondary rounded-pill"><?= $this->pokemon['weight'] ?></span>
+                                </li>
+
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <span class="h4 d-block mb-2">Tipos</span>
+                        <p>
+                            <?php foreach($this->pokemon['types'] as $type): ?>
+                                <span class="badge rounded-pill bg-warning"><?= $type['type']['name'] ?></span>
+                            <?php endforeach; ?>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <span class="h4 d-block mb-2">Habilidades</span>
+                        <p>
+                            <?php foreach($this->pokemon['abilities'] as $type): ?>
+                                <span class="badge rounded-pill bg-danger"><?= $type['ability']['name'] ?></span>
+                            <?php endforeach; ?>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <span class="h4 d-block mb-2">Estadísticas</span>
+                        <p>
+                            <ul class="list-group list-group-flush">
+                                <?php foreach($this->pokemon['stats'] as $type): ?>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <?= $type['stat']['name'] ?>
+                                        <span class="badge bg-success rounded-pill"><?= $type['base_stat'] ?></span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <span class="h4 d-block mb-2">Movimientos</span>
+                        <p>
+                            <?php foreach($this->pokemon['moves'] as $type): ?>
+                                <span class="badge rounded-pill bg-info"><?= $type['move']['name'] ?></span>
+                            <?php endforeach; ?>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+<?php endif; ?>

@@ -1,0 +1,90 @@
+<?php if (isset($errorMessage)): ?>
+
+    <h2>Ocurrió un error al cargar los datos</h2>
+
+<?php else: ?>
+
+    <div class="container">
+
+        <div class="row mt-4 mb-4">
+
+            <div class="col-8">
+                <h2 class="display-5">Listado de pokemones</h2>
+            </div>
+
+            <div class="col-4 d-flex align-items-center">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="input-filter-by-name" placeholder="Buscar por nombre" aria-label="Buscar por nombre" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-primary" type="button" id="button-filter-by-name">Buscar</button>
+                </div>
+            </div>
+
+        </div>
+
+        <?php if ($this->nameFilter != ''): ?>
+
+            <div class="row mb-5">
+                <div class="col">
+                    <p class="fs-3">Resultados de la busqueda por "<b><?= $this->nameFilter ?></b>"</p>
+                    <a class="btn btn-outline-primary" type="button" href="<?= $this->url('home'); ?>">Ver todos los pokemones</a>
+                </div>
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+    <div class="container mb-5">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+
+            <?php foreach($this->pokemons as $pokemon): ?>
+
+                <div class="col">
+                    <a href="<?= $this->url('view_pokemon', ['id' => $pokemon['id']]); ?>" title="Ver pokemon" class="pokemon-card text-decoration-none">
+                        <div class="card">
+
+                            <img src="<?= $pokemon['sprites']['front_default'] ?>" class="card-img-top" alt="<?= $pokemon['name'] ?>">
+
+                            <div class="card-body">
+                                <h5 class="card-title text-dark"><?= ucfirst($pokemon['name']) ?></h5>
+                                <p class="card-text text-dark">
+                                    <?php foreach($pokemon['types'] as $type): ?>
+                                        <span class="badge rounded-pill bg-info"><?= $type['type']['name'] ?></span>
+                                    <?php endforeach; ?>
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+    </div>
+
+    <?php if ($this->nameFilter == ''): ?>
+
+        <div class="container d-flex justify-content-center">
+            <nav aria-label="paginacion">
+                <ul class="pagination">
+
+                    <?php foreach($pages as $page): ?>
+
+                        <?php $enable = $page['enabled'] ? '' : 'disabled'; ?>
+                        <?php $selected = $page['selected'] ? 'active' : ''; ?>
+                        <?php $url = $this->url('paginator', ['page' => $page['page']]); ?>
+
+                        <li class="page-item">
+                            <a class="page-link <?= $enable ?> <?= $selected ?>" href="<?= $url ?>" ><?= $page['label'] ?></a>
+                        </li>    
+
+                    <?php endforeach; ?>
+
+                </ul>
+            </nav>
+        </div>
+
+    <?php endif; ?>
+
+<?php endif; ?>
